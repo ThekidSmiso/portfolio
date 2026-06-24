@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kwanda Simiso Hlatshwayo | Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0a0c10;
+    --bg2:      #0f1117;
+    --bg3:      #161b22;
+    --border:   #21262d;
+    --blue:     #3b82f6;
+    --blue-dim: #1d4ed8;
+    --cyan:     #22d3ee;
+    --text:     #e6edf3;
+    --muted:    #8b949e;
+    --dim:      #484f58;
+    --green:    #3fb950;
+    --yellow:   #d29922;
+    --mono:     'Space Mono', monospace;
+    --sans:     'Space Grotesk', sans-serif;
+    --body:     'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+    background: rgba(10,12,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--blue);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-logo span { color: var(--cyan); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    font-family: var(--body);
+    font-size: 0.85rem;
+    color: var(--muted);
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  nav a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    gap: 3rem;
+  }
+
+  .hero-left { flex: 1; }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 .name { color: var(--text); }
+  .hero h1 .accent { color: var(--blue); }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(59,130,246,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* ── TERMINAL ── */
+  .hero-right {
+    flex: 1;
+    max-width: 480px;
+  }
+
+  .terminal {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+
+  .terminal-bar {
+    background: var(--bg2);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .terminal-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .terminal-body {
+    padding: 1.25rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.85;
+    min-height: 260px;
+  }
+
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--muted); }
+  .t-key { color: var(--cyan); }
+  .t-val { color: var(--blue); }
+  .t-str { color: var(--yellow); }
+
+  .cursor {
+    display: inline-block;
+    width: 9px; height: 1.1em;
+    background: var(--blue);
+    vertical-align: text-bottom;
+    animation: blink 1.1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--blue);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: var(--sans);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 3rem;
+    letter-spacing: -0.01em;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-size: 0.975rem;
+  }
+
+  .about-text p strong { color: var(--text); }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+
+  .stat-num {
+    font-family: var(--sans);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .project-card:hover {
+    border-color: var(--blue);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(59,130,246,0.12);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .project-icon {
+    font-size: 1.4rem;
+  }
+
+  .project-link-icon {
+    color: var(--dim);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .project-card:hover .project-link-icon { color: var(--blue); }
+
+  .project-name {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    flex: 1;
+    line-height: 1.6;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(59,130,246,0.1);
+    color: var(--cyan);
+    border: 1px solid rgba(59,130,246,0.2);
+  }
+
+  /* ── EDUCATION / TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+  }
+
+  .timeline-date {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-title {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-inst {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .skill-group {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-pill {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* ── CONTACT ── */
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .contact-text p {
+    color: var(--muted);
+    font-size: 0.975rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+  }
+
+  .contact-link:hover {
+    color: var(--text);
+    border-color: var(--blue);
+  }
+
+  .contact-link .link-label { color: var(--muted); font-size: 0.78rem; display: block; }
+  .contact-link .link-val { color: var(--text); font-size: 0.9rem; font-weight: 500; }
+
+  .contact-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--dim);
+  }
+
+  footer span { color: var(--blue); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { flex-direction: column; padding-top: 5rem; }
+    .hero-right { max-width: 100%; width: 100%; }
+    .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+  }
+
+  /* ── SCROLL FADE ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">~/kwanda<span>.smiso</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Available for opportunities</p>
+    <h1>
+      <span class="name">Kwanda Simiso</span><br/>
+      <span class="accent">Hlatshwayo</span>
+    </h1>
+    <p class="hero-sub">
+      Software Developer with a self-driven passion for AI and automation. What I couldn't study in a classroom, I built in the real world — autonomous agents, intelligent workflows, and systems that think.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">↓ View Projects</a>
+      <a href="https://github.com/ThekidSmiso" target="_blank" class="btn btn-outline">⌥ GitHub</a>
+      <a href="#contact" class="btn btn-outline">✉ Contact</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="terminal-title">smiso@portfolio ~ zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">❯ </span><span class="t-cmd">whoami --json</span></div>
+        <div class="t-out">{</div>
+        <div class="t-out">&nbsp;&nbsp;<span class="t-key">"name"</span>: <span class="t-str">"Kwanda Simiso Hlatshwayo"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;<span class="t-key">"alias"</span>: <span class="t-str">"Smiso"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-str">"Software Developer"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;<span class="t-key">"university"</span>: <span class="t-str">"TUT"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;<span class="t-key">"graduating"</span>: <span class="t-val">2025</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;<span class="t-key">"focus"</span>: [</div>
+        <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"AI Agents"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Automation"</span>,</div>
+        <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"LangGraph"</span></div>
+        <div class="t-out">&nbsp;&nbsp;],</div>
+        <div class="t-out">&nbsp;&nbsp;<span class="t-key">"status"</span>: <span class="t-str">"building cool things"</span></div>
+        <div class="t-out">}</div>
+        <br/>
+        <div><span class="t-prompt">❯ </span><span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label fade-in">// about me</p>
+  <h2 class="section-title fade-in">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>I'm <strong>Kwanda Simiso Hlatshwayo</strong>, a 21-year-old software developer and final-year Computer Science student at Tshwane University of Technology, completing my studies in 2026 and graduating in May 2027.</p>
+      <p>AI and automation were never on my school curriculum — but that didn't stop me. I taught myself everything: LangGraph, LLM APIs, n8n, agent architectures. My passion drove me to build real systems while studying the fundamentals in class. That combination — formal CS training plus self-driven AI work — is what makes my approach different.</p>
+      <p>My diploma covers <strong>programming, databases, systems analysis, software engineering, information systems,</strong> and <strong>networking</strong>. Outside the classroom, I've been building <strong>autonomous AI agents</strong> and <strong>intelligent automation workflows</strong> that solve real problems.</p>
+    </div>
+    <div class="about-stats fade-in">
+      <div class="stat-card">
+        <div class="stat-num">2+</div>
+        <div class="stat-desc">AI projects shipped & open-sourced on GitHub</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2027</div>
+        <div class="stat-desc">Expected graduation — Diploma in Computer Science, May 2027</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3+</div>
+        <div class="stat-desc">AI frameworks used in production projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">TUT</div>
+        <div class="stat-desc">Tshwane University of Technology, Pretoria</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label fade-in">// projects</p>
+  <h2 class="section-title fade-in">Things I've Built</h2>
+  <div class="projects-grid">
+
+    <a class="project-card fade-in" href="https://github.com/ThekidSmiso/-ai-patent-agent" target="_blank">
+      <div class="project-header">
+        <div class="project-icon">🤖</div>
+        <div class="project-link-icon">↗</div>
+      </div>
+      <div>
+        <div class="project-name">AI Patent Agent</div>
+        <div class="project-desc">
+          Autonomous AI agent that monitors live news feeds and identifies patent and trademark opportunities in real time. Built with LangGraph's ReAct agent pattern and powered by the Gemini API for intelligent opportunity analysis.
+        </div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">LangGraph</span>
+        <span class="tag">Gemini API</span>
+        <span class="tag">Python</span>
+        <span class="tag">ReAct Agent</span>
+        <span class="tag">USPTO</span>
+      </div>
+    </a>
+
+    <a class="project-card fade-in" href="https://github.com/ThekidSmiso/AI-Calendar-Update" target="_blank">
+      <div class="project-header">
+        <div class="project-icon">📅</div>
+        <div class="project-link-icon">↗</div>
+      </div>
+      <div>
+        <div class="project-name">AI Calendar Agent</div>
+        <div class="project-desc">
+          Conversational AI agent that creates Google Calendar events from plain natural language input. Say "schedule a team meeting tomorrow at 3pm" and it handles the rest. Built with n8n automation, OpenAI GPT, and the Google Calendar API.
+        </div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">n8n</span>
+        <span class="tag">OpenAI GPT</span>
+        <span class="tag">Google Calendar API</span>
+        <span class="tag">Automation</span>
+        <span class="tag">NLP</span>
+      </div>
+    </a>
+
+    <div class="project-card fade-in" style="border-style: dashed; opacity: 0.6; cursor: default;">
+      <div class="project-header">
+        <div class="project-icon">⚙️</div>
+      </div>
+      <div>
+        <div class="project-name">More Coming Soon</div>
+        <div class="project-desc">
+          Always building. Check my GitHub for the latest experiments in AI, automation, and intelligent systems.
+        </div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">In Progress</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label fade-in">// education</p>
+  <h2 class="section-title fade-in">Academic Journey</h2>
+  <div class="timeline">
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">2024 – 2026</div>
+      <div class="timeline-title">Diploma in Computer Science</div>
+      <div class="timeline-inst">Tshwane University of Technology (TUT), Pretoria · Graduating May 2027</div>
+      <div class="timeline-desc">
+        Final-year student completing studies in 2026, graduating May 2027. Coursework spans programming, databases, systems analysis, software engineering, information systems, and networking. Actively integrating AI and automation into projects alongside core diploma skills.
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-date">2022</div>
+      <div class="timeline-title">National Senior Certificate (Matric)</div>
+      <div class="timeline-inst">Phulong Secondary School</div>
+      <div class="timeline-desc">
+        Completed matric and pursued a path in computing and technology, building toward a career in software and AI development.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label fade-in">// skills</p>
+  <h2 class="section-title fade-in">Tech Stack</h2>
+  <div class="skills-grid">
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">AI & Agents</div>
+      <div class="skill-list">
+        <span class="skill-pill">LangGraph</span>
+        <span class="skill-pill">LangChain</span>
+        <span class="skill-pill">Gemini API</span>
+        <span class="skill-pill">OpenAI API</span>
+        <span class="skill-pill">ReAct Agents</span>
+        <span class="skill-pill">Prompt Engineering</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Automation</div>
+      <div class="skill-list">
+        <span class="skill-pill">n8n</span>
+        <span class="skill-pill">REST APIs</span>
+        <span class="skill-pill">Google Calendar API</span>
+        <span class="skill-pill">Webhooks</span>
+        <span class="skill-pill">ngrok</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-list">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">Java</span>
+        <span class="skill-pill">SQL</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Backend & Data</div>
+      <div class="skill-list">
+        <span class="skill-pill">Node.js</span>
+        <span class="skill-pill">Express.js</span>
+        <span class="skill-pill">MySQL</span>
+        <span class="skill-pill">Railway</span>
+        <span class="skill-pill">REST APIs</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Frontend</div>
+      <div class="skill-list">
+        <span class="skill-pill">React</span>
+        <span class="skill-pill">Vite</span>
+        <span class="skill-pill">HTML/CSS</span>
+        <span class="skill-pill">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Tools & Concepts</div>
+      <div class="skill-list">
+        <span class="skill-pill">Git & GitHub</span>
+        <span class="skill-pill">OOP</span>
+        <span class="skill-pill">Systems Analysis</span>
+        <span class="skill-pill">Networking</span>
+        <span class="skill-pill">Software Engineering</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label fade-in">// contact</p>
+  <h2 class="section-title fade-in">Let's Connect</h2>
+  <div class="contact-wrapper">
+    <div class="contact-text fade-in">
+      <p>
+        I'm a final-year student actively looking for <strong>internship, part-time, or junior developer opportunities</strong> in AI, automation, or software development. If you're building something interesting or want to collaborate, I'd love to hear from you.
+      </p>
+      <p>Whether it's a project, a role, or just a conversation about AI — my inbox is open.</p>
+      <a href="mailto:kwandahlatshwayo42@gmail.com" class="btn btn-primary">✉ Send an Email</a>
+    </div>
+    <div class="contact-links fade-in">
+      <a class="contact-link" href="mailto:kwandahlatshwayo42@gmail.com">
+        <span class="contact-icon">✉</span>
+        <div>
+          <span class="link-label">Email</span>
+          <span class="link-val">kwandahlatshwayo42@gmail.com</span>
+        </div>
+      </a>
+      <a class="contact-link" href="https://github.com/ThekidSmiso" target="_blank">
+        <span class="contact-icon">⌥</span>
+        <div>
+          <span class="link-label">GitHub</span>
+          <span class="link-val">github.com/ThekidSmiso</span>
+        </div>
+      </a>
+      <a class="contact-link" href="https://github.com/ThekidSmiso/-ai-patent-agent" target="_blank">
+        <span class="contact-icon">🤖</span>
+        <div>
+          <span class="link-label">Featured Project</span>
+          <span class="link-val">AI Patent Agent</span>
+        </div>
+      </a>
+      <a class="contact-link" href="https://github.com/ThekidSmiso/AI-Calendar-Update" target="_blank">
+        <span class="contact-icon">📅</span>
+        <div>
+          <span class="link-label">Featured Project</span>
+          <span class="link-val">AI Calendar Agent</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Kwanda Simiso Hlatshwayo</span> · 2026 · CS @ TUT
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
